@@ -1,0 +1,31 @@
+{
+  "user": [
+    {
+      "id": "Denny",
+      "name": "Denny Sunny",
+      "password": "Denny1234",
+      "email": "test@gmail.com",
+      "gender": "male",
+      "role": "admin",
+      "isActive": true
+    },
+    {
+      "id": "Neethu",
+      "name": "Neethu KS",
+      "password": "Neeks123",
+      "email": "neethu@gmail.com",
+      "gender": "female",
+      "role": "user",
+      "isActive": true
+    },
+    {
+      "id": "test1",
+      "name": "test user",
+      "password": "testUser1",
+      "email": "testuser@test.com",
+      "gender": "Male",
+      "role": "",
+      "isActive": false
+    }
+  ]
+}

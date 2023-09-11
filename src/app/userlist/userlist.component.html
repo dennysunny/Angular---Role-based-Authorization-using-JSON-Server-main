@@ -1,0 +1,26 @@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Active</th>
+            <th scope="col">Action</th>
+
+        </tr>
+    </thead>
+    <tbody *ngFor = "let user of userList; let i = index">
+        <tr>
+            <th scope="row">{{i+1}}</th>
+            <td>{{user.id}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.role? user.role : "N/A"}}</td>
+            <td>{{user.isActive}}</td>
+            <button class="btn btn-success"  >Edit</button>
+        </tr>
+    </tbody>
+</table>

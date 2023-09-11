@@ -1,0 +1,26 @@
+<nav class="navbar bg-dark navbar-dark" *ngIf = "isNavVisible">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Role Based Authentication</span>
+        
+            <a routerLink="">Home</a>
+            <a *ngIf="isAdmin" routerLink="/users">Users</a>
+            <a routerLink="/customer">Customer</a>
+            <div class="spacer"></div>
+            
+            <a routerLink="/login" (click)="logout()">Logout</a>
+        
+    </div>
+</nav>
+
+
+<div class="container m-5 p-5" >
+    <router-outlet></router-outlet>
+</div>
+
+
+<nav class="navbar fixed-bottom navbar-dark bg-dark p-3 ">
+    <p class="navbar-brand text-center " href="#">Registration </p>
+    <p class="navbar-brand text-center " href="#"> Login </p>
+    <p class="navbar-brand text-center " href="#">Role Based Access</p>
+
+</nav>

@@ -1,0 +1,14 @@
+<div class="container" >
+    <div >
+        <h1>Welcome to DEX RBA </h1>
+    </div>
+    <ul *ngIf="currentUser" >
+        <li>{{currentUser.user.id}}</li>
+        <li>{{currentUser.user.username}}</li>
+        <li>{{currentUser.user.password}}</li>
+    </ul>
+
+    <p>{{userToken}}</p>
+
+    <button (click)="validateUser(currentUser)" > Validate User Authentication</button>
+</div>
