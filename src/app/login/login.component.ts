@@ -45,29 +45,29 @@ export class LoginComponent implements OnInit{
     }
   }
 
-  userLogin(){
+  // userLogin(){
 
-    if(this.loginForm.valid){
-      this.authService.getById(this.loginForm.value.id).subscribe({
-        next : (res) => {
+  //   if(this.loginForm.valid){
+  //     this.authService.getById(this.loginForm.value.id).subscribe({
+  //       next : (res) => {
         
-         if(res.password === this.loginForm.value.password){
-            if(res.isActive){
-              sessionStorage.setItem('userid', res.id);
-              sessionStorage.setItem('role', res.role)
-              this.router.navigate(['/home'])
+  //        if(res.password === this.loginForm.value.password){
+  //           if(res.isActive){
+  //             sessionStorage.setItem('userid', res.id);
+  //             sessionStorage.setItem('role', res.role)
+  //             this.router.navigate(['/home'])
               
-              this.authService.setUserInfo(res)
+  //             this.authService.setUserInfo(res)
 
-            } else {
-              this.toastr.error("Please Contact Admin", "User Account is not Approved")
-            }
-         } else this.toastr.warning("Invalid Username/ Password")
-        },
-        error: (error) => this.toastr.warning("Invalid Username/ Password", error)
-      })
-    } 
-  }
+  //           } else {
+  //             this.toastr.error("Please Contact Admin", "User Account is not Approved")
+  //           }
+  //        } else this.toastr.warning("Invalid Username/ Password")
+  //       },
+  //       error: (error) => this.toastr.warning("Invalid Username/ Password", error)
+  //     })
+  //   } 
+  // }
 
   authenticateUser(){
     if(this.loginForm.valid){
@@ -75,9 +75,12 @@ export class LoginComponent implements OnInit{
         next : (res) => {
           this.toastr.success(res.message);
           this.router.navigate(['/home']);
+          this.authService.setLoginStatus(true);
           this.authService.setUserInfo(res)
         },
-        error : (err) => this.toastr.error(err.statusText, err.status)
+        error : (err) => { console.log("Login", err);
+         this.toastr.error(err.error.message, err.statusText)}
+        
         
      })
      

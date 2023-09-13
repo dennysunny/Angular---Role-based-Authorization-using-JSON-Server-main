@@ -1,5 +1,6 @@
 import { Component, DoCheck } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from './service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +11,22 @@ export class AppComponent implements DoCheck{
   title = 'auth';
   isNavVisible = false;
   isAdmin = false;
+  currentUser: any;
 
   constructor(
     private router : Router,
-    //private activeURL : ActivatedRoute
+    private authService :AuthService
   ){}
 
     ngDoCheck(){
+
+      this.authService.userInfo.subscribe({
+        next: (res) => {
+         this.currentUser = res 
+       }
+      })
       
-      if(sessionStorage.getItem('role') == 'admin'){
+      if(this.currentUser && this.currentUser.user.role == 'admin'){
         this.isAdmin = true;
       }else this.isAdmin = false
 
@@ -27,8 +35,10 @@ export class AppComponent implements DoCheck{
       } else this.isNavVisible = true
     }
 
+ 
+
   logout(){
-    localStorage.removeItem('token');
+    localStorage.removeItem('auth-token');
     sessionStorage.clear();
   }
   

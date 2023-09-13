@@ -4,8 +4,10 @@
     </div>
     <ul *ngIf="currentUser" >
         <li>{{currentUser.user.id}}</li>
-        <li>{{currentUser.user.username}}</li>
+        <li>{{currentUser.user.name}}</li>
         <li>{{currentUser.user.password}}</li>
+        <li>{{currentUser.user.role}}</li>
+
     </ul>
 
     <p>{{userToken}}</p>

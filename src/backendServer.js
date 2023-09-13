@@ -1,6 +1,7 @@
 // server.js
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios');
 
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
@@ -10,24 +11,18 @@ const port = process.env.PORT || 4000;
 const secretKey = 'Xy5rWv2Z8AqBn3SpK9MlP4oQ'; 
 
 app.use(bodyParser.json());
+
 app.use(cors({ origin: 'http://localhost:4200' }));
 
 
-const users = [
-  {
-    id: 1,
-    username: 'denny',
-    password: 'denny123',
-  },
-  {
-    id: 2,
-    username: 'dexx',
-    password: 'd3nxy12',
-  },
-  { id: '3',
-   username: 'testx',
-   password: 'Denny1234' }
-];
+
+const users_db_api = 'http://localhost:3000/user'; // data from JSON DB
+
+
+app.get('/register', (req, res) => {
+  console.log("Register Route");
+})
+
 
 // Authentication route
 app.post('/login', (req, res) => {
@@ -36,25 +31,37 @@ app.post('/login', (req, res) => {
     
   const { username, password } = req.body.user;
 
-  const user = users.find((u) => u.username === username && u.password === password);
+  userlist = []
 
+  axios
+    .get(users_db_api)
+    .then((response) => {
+      userlist = response.data;
+      const user = userlist.find(
+        (u) => u.name === username && u.password === password
+      );
 
-  if (!user) {
-    return res.status(401).json({ message: 'User Authentication failed' });
-  }
-  
+      if (!user) {
+        return res.status(401).json({ message: 'User Authentication failed' });
+      }
+      
+    
+      // Generate and send a JWT
+      const token = jwt.sign({ userId: user.id, username: user.name }, 
+        secretKey, { expiresIn: '1h' });
+    
+      const responseObj = {
+        token,
+        message: 'Authentication successful',
+        user: user
+      };
+    
+      res.status(200).json(responseObj);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 
-  // Generate and send a JWT
-  const token = jwt.sign({ userId: user.id, username: user.username }, 
-    secretKey, { expiresIn: '1h' });
-
-  const responseObj = {
-    token,
-    message: 'Authentication successful',
-    user: user
-  };
-
-  res.status(200).json(responseObj);
 });
 
 
@@ -90,3 +97,5 @@ app.get('/protected', verifyToken, (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+

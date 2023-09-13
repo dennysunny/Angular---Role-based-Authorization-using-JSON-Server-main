@@ -29,7 +29,7 @@ export class JsonServerUrlInterceptor implements HttpInterceptor {
 
 
     if(token){
-      console.log("Inside token");
+      console.log("token saved in storage");
       
       const authReq = request.clone({
         setHeaders: { Authorization: `Bearer ${token}` },
@@ -39,7 +39,6 @@ export class JsonServerUrlInterceptor implements HttpInterceptor {
       return next.handle(authReq).pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === 401) {
-            this.toastr.error("401", "Authorized")
             this.authService.clearToken();
           }
           return throwError(error);

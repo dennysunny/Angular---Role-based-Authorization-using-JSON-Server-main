@@ -1,12 +1,25 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, catchError, shareReplay, tap, throwError } from 'rxjs';
 
+import { ToastrService } from 'ngx-toastr';
+
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  shareReplay,
+  tap,
+  throwError,
+} from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private toastr: ToastrService) {}
 
   getAllUsers(): Observable<any> {
     return this.http.get('user').pipe(
@@ -22,27 +35,21 @@ export class AuthService {
     );
   }
 
-  authenticateUser(user :any): Observable<any> {    
+  authenticateUser(user: any): Observable<any> {
     const options = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(
-      'login',
-      { user },
-      { headers: options }
-    ).pipe(
-      tap((res)=> {
+    return this.http.post<any>('login', { user }, { headers: options }).pipe(
+      tap((res) => {
         localStorage.setItem('auth-token', res.token);
-      }), shareReplay(1), catchError(this.handleError)
-    )
+      }),
+      shareReplay(1),
+      catchError(this.handleError)
+    );
   }
 
-  validateToken(user :any) :Observable<any>{
-    return this.http.get(
-      'protected',
-    ).pipe(
-      tap((res)=> {
-        console.log("Validate token", res);
-      }), shareReplay(1), catchError(this.handleError)
-    )
+  validateToken(user: any): Observable<any> {
+    return this.http
+      .get('protected')
+      .pipe(shareReplay(1), catchError(this.handleError));
   }
 
   clearToken(): void {
@@ -75,6 +82,14 @@ export class AuthService {
   private _saveUserDetails = new BehaviorSubject<any>('');
   userInfo = this._saveUserDetails.asObservable();
 
+  private _isUserLoggedIn = new BehaviorSubject<any>('');
+  isLoggedIn = this._isUserLoggedIn.asObservable();
+
+  setLoginStatus(isLoggedIn: boolean) {
+    this._isUserLoggedIn.next(isLoggedIn);
+    console.log('login sattus', isLoggedIn);
+  }
+
   setUserInfo(user: any) {
     this._saveUserDetails.next(user);
     //console.log("UserInfo", this.userInfo);
@@ -85,14 +100,14 @@ export class AuthService {
 
     if (err instanceof Error) {
       errMsg = err.error.message;
-      console.log("ErrMSG HTTP Handle error");
-      
+      console.log('ErrMSG HTTP Handle error');
     } else {
-      errMsg = err.status.toString();
+      errMsg = err.statusText;
       console.log(`Backend returned code ${err.status}`);
+      console.log('Error Message', errMsg);
+     // this.toastr.error('Error', errMsg)
     }
-    console.log('HandleError', errMsg);
 
-    return throwError(() => errMsg);
+    return throwError(() => err);
   }
 }

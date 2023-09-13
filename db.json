@@ -26,6 +26,16 @@
       "gender": "Male",
       "role": "",
       "isActive": false
+    },
+    {
+      "id": "testx",
+      "name": "test user",
+      "password": "Denny1234",
+      "email": "testuser@test.com",
+      "gender": "Male",
+      "role": "admin",
+      "isActive": false
     }
+
   ]
 }
