@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SalutationPipe } from './salutation.pipe';
 import { MaterialModule } from 'src/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './register/register.component';
@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { UpdatepopupComponent } from './updatepopup/updatepopup.component';
 import { JsonServerUrlInterceptor } from './json-server-url.interceptor';
+import { CommonComponentsModule } from './common/common-components/common-components.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { JsonServerUrlInterceptor } from './json-server-url.interceptor';
     LoginComponent,
     HomeComponent,
     UserlistComponent,
-    UpdatepopupComponent
+    UpdatepopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +39,8 @@ import { JsonServerUrlInterceptor } from './json-server-url.interceptor';
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
-    
+    CommonComponentsModule,
+    FormsModule
   ],
   providers: [
     {provide : HTTP_INTERCEPTORS, useClass : JsonServerUrlInterceptor, multi : true}

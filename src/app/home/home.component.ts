@@ -16,16 +16,14 @@ export class HomeComponent implements DoCheck, OnInit {
   ) {}
 
   currentUser!: any;
+  validationStatus :any = null;
+  validationType! :any;
   userToken = localStorage.getItem('auth-token');
 
   ngOnInit() {
     this.validateUser();
   }
 
-  // userDetails(event :any){
-  //   console.log("Event", event);
-
-  // }
 
   ngDoCheck() {
     if (this.route.url == '/home' || this.route.url == '') {
@@ -38,13 +36,17 @@ export class HomeComponent implements DoCheck, OnInit {
   }
 
   validateUser() {
+    
     this.authService.validateToken().subscribe({
       next: (res) => {
-        this.toastr.success('Response from Backend', res.message);
+        this.validationType = 'success';
+        this.validationStatus = res.message;
       },
       error: (err) => {
-        this.toastr.error(err.statusText, err.status),
-        this.toastr.info('Token Exprired / Invalid');
+        // this.toastr.error(err.statusText, err.status),
+        // this.toastr.info('Token Exprired / Invalid');
+        this.validationType = 'error';
+        this.validationStatus = err.statusText;
         this.authService.logoutUser();
       },
     });

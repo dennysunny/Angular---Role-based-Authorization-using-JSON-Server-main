@@ -1,0 +1,16 @@
+<ng-container *ngIf=message && showToast>
+  <div  [ngStyle]="{
+    'background-color': type === 'success' ? 'green' :
+             type === 'warn' ? 'yellow' :
+             type === 'error' ? 'red' : 'blue'
+  }" class="toaster">
+    <i [ngClass]=iconClass></i>
+
+    <h4>{{message}}</h4>
+  </div>
+</ng-container>
+
+<h4>{{message}}</h4>
+<h1>{{iconClass}}</h1>
+
+

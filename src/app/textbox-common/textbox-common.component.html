@@ -1,0 +1,31 @@
+<div>
+  <div class="fontOptions">
+    <button (click)="isBold = !isBold">Bold</button>
+    <button (click)="isItalic = !isItalic">Italic</button>
+    <button (click)="isUnderline = !isUnderline">Underline</button>
+    <button>Font Size</button>
+    <input type="number" [(ngModel)]="fontSize" min="8" max="72" />
+  </div>
+  <textarea
+    [(ngModel)]="data"
+    (input)="adjustTextareaSize()"
+    #myTextarea
+    rows="1"
+    cols="30"
+    [style.font-weight]="isBold ? 'bold' : 'normal'"
+    [style.font-style]="isItalic ? 'italic' : 'normal'"
+    [style.text-decoration]="isUnderline ? 'underline' : 'none'"
+    [style.font-size.px]="fontSize"
+  >
+  </textarea>
+  <p class="post" (click)="onSubmitComment()">Post</p>
+</div>
+
+
+ <ng-container  >
+  <app-common-toastr  
+  [type]=validationType
+  [message]=validationStatus
+  >
+  </app-common-toastr>
+ </ng-container>

@@ -10,7 +10,19 @@
 
     </ul>
 
-    <p>{{userToken}}</p>
+    <app-textbox-common [data]=userToken>
+
+    </app-textbox-common>
 
     <button (click)="validateUser()" > Validate User Authentication</button>
+
+    <ng-container *ngIf=validationStatus!='' >
+        <app-common-toastr  
+    [type]=validationType
+    [message]=validationStatus
+    >
+    </app-common-toastr>
+    </ng-container>
+    
+
 </div>
