@@ -38,8 +38,7 @@ export class AppComponent implements DoCheck{
  
 
   logout(){
-    localStorage.removeItem('auth-token');
-    sessionStorage.clear();
+    this.authService.logoutUser();
   }
   
 }

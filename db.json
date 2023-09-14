@@ -10,21 +10,30 @@
       "isActive": true
     },
     {
-      "id": "Neethu",
-      "name": "Neethu KS",
-      "password": "Neeks123",
-      "email": "neethu@gmail.com",
+      "id": "Alice",
+      "name": "Alice Johnson",
+      "password": "Alice9876",
+      "email": "alice@example.com",
       "gender": "female",
       "role": "user",
       "isActive": true
     },
     {
-      "id": "test1",
-      "name": "test user",
-      "password": "testUser1",
-      "email": "testuser@test.com",
-      "gender": "Male",
-      "role": "",
+      "id": "Bob",
+      "name": "Bob Smith",
+      "password": "Bob5678",
+      "email": "bob@example.com",
+      "gender": "male",
+      "role": "manager",
+      "isActive": true
+    },
+    {
+      "id": "Eve",
+      "name": "Eve Davis",
+      "password": "Eve4321",
+      "email": "eve@example.com",
+      "gender": "female",
+      "role": "guest",
       "isActive": false
     },
     {
@@ -35,7 +44,15 @@
       "gender": "Male",
       "role": "admin",
       "isActive": false
+    },
+    {
+      "id": "Dennyas",
+      "name": "Dennyas",
+      "password": "Denny1234",
+      "email": "denny@den.com",
+      "gender": "Male",
+      "role": "user",
+      "isActive": false
     }
-
   ]
 }

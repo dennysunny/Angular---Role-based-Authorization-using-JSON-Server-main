@@ -15,21 +15,24 @@ import {
   tap,
   throwError,
 } from 'rxjs';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private toastr: ToastrService) {}
+  constructor(private http: HttpClient, 
+    private route: Router,
+    private toastr: ToastrService) {}
 
   getAllUsers(): Observable<any> {
-    return this.http.get('user').pipe(
+    return this.http.get('users').pipe(
       tap((res) => console.log(JSON.stringify(res))),
       catchError(this.handleError)
     );
   }
 
   getById(code: any) {
-    return this.http.get(`user/${code}`).pipe(
+    return this.http.get(`users/${code}`).pipe(
       tap((res) => console.log('Get:', JSON.stringify(res))),
       catchError(this.handleError)
     );
@@ -46,7 +49,7 @@ export class AuthService {
     );
   }
 
-  validateToken(user: any): Observable<any> {
+  validateToken(): Observable<any> {
     return this.http
       .get('protected')
       .pipe(shareReplay(1), catchError(this.handleError));
@@ -58,7 +61,7 @@ export class AuthService {
 
   registerUser(user: any) {
     const options = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post('user', user, { headers: options }).pipe(
+    return this.http.post('register', user, { headers: options }).pipe(
       tap((res) => console.log('Post:', JSON.stringify(res))),
       catchError(this.handleError)
     );
@@ -79,8 +82,7 @@ export class AuthService {
     );
   }
 
-  private _saveUserDetails = new BehaviorSubject<any>('');
-  userInfo = this._saveUserDetails.asObservable();
+
 
   private _isUserLoggedIn = new BehaviorSubject<any>('');
   isLoggedIn = this._isUserLoggedIn.asObservable();
@@ -90,9 +92,18 @@ export class AuthService {
     console.log('login sattus', isLoggedIn);
   }
 
+  private _saveUserDetails = new BehaviorSubject<any>('');
+  userInfo = this._saveUserDetails.asObservable();
+
   setUserInfo(user: any) {
     this._saveUserDetails.next(user);
     //console.log("UserInfo", this.userInfo);
+  }
+
+  logoutUser(){  
+    localStorage.removeItem('auth-token');
+    sessionStorage.clear();
+    this.route.navigate(['/login']);
   }
 
   private handleError(err: HttpErrorResponse): Observable<any> {

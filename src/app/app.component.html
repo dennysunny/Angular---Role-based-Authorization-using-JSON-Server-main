@@ -1,6 +1,6 @@
 <nav class="navbar bg-dark navbar-dark" *ngIf = "isNavVisible">
     <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">Role Based Authentication</span>
+        <span class="navbar-brand mb-0 h1" routerLink="/home" >Role Based Authentication</span>
         
             <!-- <a routerLink="">Home</a> -->
             <a *ngIf="isAdmin" routerLink="/users">Users</a>

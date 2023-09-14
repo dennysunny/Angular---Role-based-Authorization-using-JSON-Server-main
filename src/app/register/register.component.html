@@ -1,14 +1,14 @@
 
-<div class="container" >
+<div class="login-container" >
     
-   <mat-card  >
+   <mat-card class="login-card" >
         <mat-card-header class="text-danger" >
             <h1 class="font-weight-bold" > User Registeration </h1>
         </mat-card-header>
         
         <mat-card-content>
-            <form [formGroup]="registerationForm" class="example-form" (ngSubmit)="completeRegistration()" >
-                <mat-form-field class="example-full-width">
+            <form [formGroup]="registerationForm"  (ngSubmit)="completeRegistration()" >
+                <mat-form-field class="full-width">
                     <mat-label>User ID</mat-label>
                     <input matInput formControlName = "id">
                     <div *ngIf = " registerationForm.controls['id'].touched  && registerationForm.get('id')?.errors" class="alert alert-danger">
@@ -18,12 +18,12 @@
                     </div>
                 </mat-form-field>
 
-                <mat-form-field class="example-full-width">
+                <mat-form-field class="full-width">
                     <mat-label>Name</mat-label>
                     <input matInput formControlName="name">
                 </mat-form-field>
 
-                <mat-form-field class="example-full-width">
+                <mat-form-field class="full-width">
                     <mat-label>Password</mat-label>
                     <input type="password" matInput formControlName="password">
                         <div *ngIf = " registerationForm.controls['password'].touched  && registerationForm.get('password')?.errors" class="alert alert-danger">

@@ -1,13 +1,13 @@
-<div class="container">
+<div class="login-container">
 
-    <mat-card>
+    <mat-card class="login-card">
         <mat-card-header class="text-danger">
             <h1 class="font-weight-bold"> User Login </h1>
         </mat-card-header>
 
         <mat-card-content>
-            <form [formGroup]="loginForm" class="example-form" (ngSubmit)="authenticateUser()">
-                <mat-form-field class="example-full-width">
+            <form [formGroup]="loginForm" (ngSubmit)="authenticateUser()">
+                <mat-form-field class="full-width">
                     <mat-label>User ID</mat-label>
                     <input matInput formControlName="username">
                     <div *ngIf=" loginForm.controls['username'].touched  && loginForm.get('username')?.errors"
@@ -21,7 +21,7 @@
                     </div>
                 </mat-form-field>
 
-                <mat-form-field class="example-full-width">
+                <mat-form-field class="full-width">
                     <mat-label>Password</mat-label>
                     <input type="password" matInput formControlName="password">
                     <div *ngIf=" loginForm.controls['password'].touched  && loginForm.get('password')?.errors"
@@ -40,17 +40,12 @@
 
                     </div>
                 </mat-form-field>
+                <button type="submit" mat-raised-button color="primary" class="full-width">Login</button>
+                <a routerLink="/register" class="full-width" mat-raised-button color="accent">New User?</a>
 
 
-                <section>
-
-                    <div class="example-button-row">
-                        <button type="submit" mat-raised-button color="primary">Login</button>
-                        <a routerLink="/register" mat-raised-button color="accent">New User?</a>
 
 
-                    </div>
-                </section>
 
 
             </form>
@@ -59,4 +54,3 @@
     </mat-card>
 
 </div>
-
